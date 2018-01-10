@@ -5,13 +5,13 @@
  * 
  * Disassembling to non-symbolic legacy ASL operators
  *
- * Disassembly of iASLvSd9Cq.aml, Tue Jan  9 20:02:38 2018
+ * Disassembly of iASLI2arVp.aml, Wed Jan 10 15:40:07 2018
  *
  * Original Table Header:
  *     Signature        "DSDT"
- *     Length           0x0002ACA6 (175270)
+ *     Length           0x0002AE65 (175717)
  *     Revision         0x02
- *     Checksum         0xC3
+ *     Checksum         0x60
  *     OEM ID           "_ASUS_"
  *     OEM Table ID     "Notebook"
  *     OEM Revision     0x01072009 (17244169)
@@ -17933,6 +17933,30 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             Else
             {
                 CGWR (FPAT, FPEN, FPGN, LNot (FPLV))
+            }
+        }
+
+        Device (WMTF)
+        {
+            Name (_HID, "PNP0C14")  // _HID: Hardware ID
+            Name (_UID, "TBFP")  // _UID: Unique ID
+            Name (_WDG, Buffer (0x14)
+            {
+                /* 0000 */  0x48, 0xFD, 0xCC, 0x86, 0x5E, 0x20, 0x77, 0x4A,
+                /* 0008 */  0x9C, 0x48, 0x20, 0x21, 0xCB, 0xED, 0xE3, 0x41,
+                /* 0010 */  0x54, 0x46, 0x01, 0x02                         
+            })
+            Method (WMTF, 3, NotSerialized)
+            {
+                CreateByteField (Arg2, Zero, FP)
+                If (FP)
+                {
+                    TBFP (One)
+                }
+                Else
+                {
+                    TBFP (Zero)
+                }
             }
         }
     }
@@ -42015,14 +42039,44 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     })
                 }
 
-                Return (Package (0x0E)
+                Return (Package (0x18)
                 {
                     "@0,connector-type", 
                     Buffer (0x04)
                     {
-                         0x00, 0x08, 0x00, 0x00                         
+                         0x02, 0x00, 0x00, 0x00                         
                     }, 
 
+                    "@0,AAPL,boot-display", 
+                    Buffer (0x04)
+                    {
+                         0x01, 0x00, 0x00, 0x00                         
+                    }, 
+
+                    "@0,built-in", 
+                    Buffer (Zero) {}, 
+                    "@0,display-connect-flags", 
+                    Buffer (0x04)
+                    {
+                         0x04, 0x00, 0x00, 0x00                         
+                    }, 
+
+                    "@0,use-backlight-blanking", 
+                    Buffer (0x04) {}, 
+                    "AAPL,backlight-control", 
+                    Buffer (0x04)
+                    {
+                         0x01, 0x00, 0x00, 0x00                         
+                    }, 
+
+                    "@0,backlight-control", 
+                    Buffer (0x04)
+                    {
+                         0x01, 0x00, 0x00, 0x00                         
+                    }, 
+
+                    "@0,display-type", 
+                    "LCD", 
                     "@1,connector-type", 
                     Buffer (0x04)
                     {
@@ -42041,22 +42095,10 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                          0x00, 0x08, 0x00, 0x00                         
                     }, 
 
-                    "@4,connector-type", 
-                    Buffer (0x04)
-                    {
-                         0x00, 0x08, 0x00, 0x00                         
-                    }, 
-
-                    "@5,connector-type", 
-                    Buffer (0x04)
-                    {
-                         0x00, 0x08, 0x00, 0x00                         
-                    }, 
-
                     "hda-gfx", 
                     Buffer (0x0A)
                     {
-                        "onboard-2"
+                        "onboard-1"
                     }
                 })
             }
@@ -43959,6 +44001,39 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     Method (B1B2, 2, NotSerialized)
     {
         Return (Or (Arg0, ShiftLeft (Arg1, 0x08)))
+    }
+
+    Scope (_SB)
+    {
+        Device (PNLF)
+        {
+            Name (_ADR, Zero)  // _ADR: Address
+            Name (_HID, EisaId ("APP0002"))  // _HID: Hardware ID
+            Name (_CID, "backlight")  // _CID: Compatible ID
+            Name (_UID, 0x0E)  // _UID: Unique ID
+            Name (_STA, 0x0B)  // _STA: Status
+            Method (_BCL, 0, NotSerialized)  // _BCL: Brightness Control Levels
+            {
+                Return (^^PCI0.PEG0.GFX0.LCDD._BCL ())
+            }
+
+            Method (_BCM, 1, NotSerialized)  // _BCM: Brightness Control Method
+            {
+                Store (^^PCI0.PEG0.GFX0.GCBL (Arg0), Local0)
+                Subtract (0x0F, Local0, LBTN)
+                ^^PCI0.LPCB.EC.STBR ()
+            }
+
+            Method (_BQC, 0, NotSerialized)  // _BQC: Brightness Query Current
+            {
+                Return (^^PCI0.PEG0.GFX0.LCDD._BQC ())
+            }
+
+            Method (_DOS, 1, NotSerialized)  // _DOS: Disable Output Switching
+            {
+                ^^PCI0.PEG0.GFX0._DOS (Arg0)
+            }
+        }
     }
 }
 
