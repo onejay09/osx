@@ -8,4 +8,3 @@ remove appleintellpssi2c.kext's and applehpm.kext for touchpad to work.
 things that don't work:
 keyboard backlight 
 Fn keys ex volume
-screen brightness
