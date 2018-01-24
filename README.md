@@ -11,3 +11,7 @@ backlight FN+ Pause/break FN+ Page up, brightness slider isnt functional but bri
 
 things that don't work:
 keyboard backlight 
+
+
+notes:
+onboard 1 hda gfx must be the same for both gfx0 and hdau for hdmi audio to work
