@@ -5,13 +5,13 @@
  * 
  * Disassembling to non-symbolic legacy ASL operators
  *
- * Disassembly of iASLm225wL.aml, Sun Feb  4 12:58:36 2018
+ * Disassembly of iASLUC9KkA.aml, Sun Feb  4 12:38:23 2018
  *
  * Original Table Header:
  *     Signature        "DSDT"
  *     Length           0x0002A639 (173625)
  *     Revision         0x02
- *     Checksum         0xEA
+ *     Checksum         0xB1
  *     OEM ID           "_ASUS_"
  *     OEM Table ID     "Notebook"
  *     OEM Revision     0x01072009 (17244169)
@@ -70,7 +70,6 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     External (_SB_.PCI0.GFX0.GSSE, UnknownObj)    // Warning: Unknown object
     External (_SB_.PCI0.PAUD.PUAM, MethodObj)    // Warning: Unknown method, guessing 0 arguments
     External (_SB_.PCI0.PEG0.HPME, MethodObj)    // Warning: Unknown method, guessing 0 arguments
-    External (_SB_.PCI0.PEG0.LNKD, FieldUnitObj)    // (from opcode)
     External (_SB_.PCI0.XHC_.DUAM, MethodObj)    // Warning: Unknown method, guessing 0 arguments
     External (_SB_.PCI0.SAT0.SDSM, MethodObj)    // 4 Arguments (from opcode)
     External (_SB_.PCI0.XHC_.RHUB.INIR, MethodObj)    // Warning: Unknown method, guessing 0 arguments
@@ -78,6 +77,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     External (AL6F, MethodObj)    // Warning: Unknown method, guessing 0 arguments
     External (BRTL, UnknownObj)    // Warning: Unknown object
     External (CEDR, UnknownObj)    // Warning: Unknown object
+    External (_SB_.PCI0.PEG0.LNKD, FieldUnitObj)    // (from opcode)
     External (D1F0, UnknownObj)    // Warning: Unknown object
     External (DGCX, UnknownObj)    // Warning: Unknown object
     External (GSMI, UnknownObj)    // Warning: Unknown object
@@ -9057,7 +9057,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Offset (0x08)
                 }
 
-                OperationRegion (CPSB, SystemMemory, 0x35C33F18, 0x10)
+                OperationRegion (CPSB, SystemMemory, 0x35FF3F18, 0x10)
                 Field (CPSB, AnyAcc, NoLock, Preserve)
                 {
                     RTCX,   1, 
@@ -36605,7 +36605,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
         Method (GBRV, 0, NotSerialized)
         {
-            Store ("305", Local0)
+            Store ("306", Local0)
             Return (Local0)
         }
 
@@ -41270,7 +41270,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                             Name (XUPC, Package (0x04)
                             {
                                 0xFF, 
-                                0x0A, 
+                                0x09, 
                                 Zero, 
                                 Zero
                             })
@@ -41303,7 +41303,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                             Name (XUPC, Package (0x04)
                             {
                                 0xFF, 
-                                0x0A, 
+                                0x09, 
                                 Zero, 
                                 Zero
                             })
@@ -41336,7 +41336,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                             Name (XUPC, Package (0x04)
                             {
                                 0xFF, 
-                                0x0A, 
+                                0x09, 
                                 Zero, 
                                 Zero
                             })
@@ -41369,7 +41369,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                             Name (XUPC, Package (0x04)
                             {
                                 0xFF, 
-                                0x0A, 
+                                0x09, 
                                 Zero, 
                                 Zero
                             })
