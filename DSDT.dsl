@@ -5,13 +5,13 @@
  * 
  * Disassembling to non-symbolic legacy ASL operators
  *
- * Disassembly of iASLlSWSzm.aml, Tue Feb 20 00:20:32 2018
+ * Disassembly of iASLmNGTTZ.aml, Tue Feb 20 00:21:17 2018
  *
  * Original Table Header:
  *     Signature        "DSDT"
- *     Length           0x0002AA4A (174666)
+ *     Length           0x0002ADD8 (175576)
  *     Revision         0x02
- *     Checksum         0xF9
+ *     Checksum         0xBB
  *     OEM ID           "_ASUS_"
  *     OEM Table ID     "Notebook"
  *     OEM Revision     0x01072009 (17244169)
@@ -21,8 +21,8 @@
 DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 {
     /*
-     * iASL Warning: There were 15 external control methods found during
-     * disassembly, but only 14 were resolved (1 unresolved). Additional
+     * iASL Warning: There were 16 external control methods found during
+     * disassembly, but only 15 were resolved (1 unresolved). Additional
      * ACPI tables may be required to properly disassemble the code. This
      * resulting disassembler output file may not compile because the
      * disassembler did not know how many arguments to assign to the
@@ -81,7 +81,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     External (_SB_.PCI0.PEG0.LREN, FieldUnitObj)    // (from opcode)
     External (_SB_.PCI0.PEG0.TDGC, IntObj)    // (from opcode)
     External (_SB_.PCI0.PEG0.TGPC, BuffObj)    // (from opcode)
-    External (_SB_.PCI0.SATA.SDSM, MethodObj)    // 4 Arguments (from opcode)
+    External (_SB_.PCI0.SAT0.SDSM, MethodObj)    // 4 Arguments (from opcode)
     External (_SB_.PCI0.XHC_.DUAM, MethodObj)    // 0 Arguments (from opcode)
     External (_SB_.PCI0.XHC_.RHUB.INIR, MethodObj)    // 0 Arguments (from opcode)
     External (_SB_.TPM_.PTS_, MethodObj)    // 1 Arguments (from opcode)
@@ -97,6 +97,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     External (M32L, FieldUnitObj)    // (from opcode)
     External (M64B, FieldUnitObj)    // (from opcode)
     External (M64L, FieldUnitObj)    // (from opcode)
+    External (MDBG, MethodObj)    // 1 Arguments (from opcode)
     External (P0AP, UnknownObj)    // (from opcode)
     External (P0L6, MethodObj)    // Warning: Unknown method, guessing 1 arguments
     External (P0LS, UnknownObj)    // (from opcode)
@@ -3971,7 +3972,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
                 Device (B0D4)
                 {
-                    Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                    Method (XDSM, 4, Serialized)
                     {
                         If (PCIC (Arg0))
                         {
@@ -4153,7 +4154,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -4203,24 +4204,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -4404,7 +4399,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -4454,24 +4449,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -4655,7 +4644,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -4705,24 +4694,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -4906,7 +4889,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -4956,24 +4939,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -5157,7 +5134,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -5207,24 +5184,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -5408,7 +5379,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -5458,24 +5429,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -5659,7 +5624,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -5709,24 +5674,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -5910,7 +5869,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -5960,24 +5919,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -6198,7 +6151,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -6248,24 +6201,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -6449,7 +6396,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -6499,24 +6446,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -6700,7 +6641,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -6750,24 +6691,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -6951,7 +6886,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -7001,24 +6936,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -7202,7 +7131,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -7252,24 +7181,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -7453,7 +7376,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -7503,24 +7426,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -7704,7 +7621,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -7754,24 +7671,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -7955,7 +7866,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -8005,24 +7916,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -8206,7 +8111,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -8256,24 +8161,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -8457,7 +8356,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -8507,24 +8406,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -8708,7 +8601,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -8758,24 +8651,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -8959,7 +8846,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Zero, 
                     Zero
                 })
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (LEqual (Arg0, ToUUID ("e5c937d0-3553-4d7a-9117-ea4d19c3434d") /* Device Labeling Interface */))
@@ -9009,24 +8896,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                                 {
                                     If (OBFN)
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                     Else
                                     {
-                                        Return (Package (0x01)
+                                        Return (Buffer (0x10)
                                         {
-                                            Buffer (0x10)
-                                            {
-                                                /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                                /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-                                            }
+                                            /* 0000 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            /* 0008 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
                                         })
                                     }
                                 }
@@ -9187,7 +9068,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Offset (0x08)
                 }
 
-                OperationRegion (CPSB, SystemMemory, 0x35C33F18, 0x10)
+                OperationRegion (CPSB, SystemMemory, 0x35FF3F18, 0x10)
                 Field (CPSB, AnyAcc, NoLock, Preserve)
                 {
                     RTCX,   1, 
@@ -9227,14 +9108,14 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 }
             }
 
-            Device (MCHC)
-            {
-                Name (_ADR, Zero)  // _ADR: Address
-            }
-
             Device (IMEI)
             {
                 Name (_ADR, 0x00160000)  // _ADR: Address
+            }
+
+            Device (MCHC)
+            {
+                Name (_ADR, Zero)  // _ADR: Address
             }
         }
     }
@@ -9273,21 +9154,23 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     })
     Method (_PTS, 1, NotSerialized)  // _PTS: Prepare To Sleep
     {
-        If (LNotEqual (Arg0, 0x05))
+        If (Arg0)
         {
-            If (Arg0)
-            {
-                \_SB.TPM.TPTS (Arg0)
-                \_SB.PCI0.LPCB.SPTS (Arg0)
-                \_SB.PCI0.NPTS (Arg0)
-                RPTS (Arg0)
-                OEMS (Arg0)
-            }
+            \_SB.TPM.TPTS (Arg0)
+            \_SB.PCI0.LPCB.SPTS (Arg0)
+            \_SB.PCI0.NPTS (Arg0)
+            RPTS (Arg0)
+            OEMS (Arg0)
         }
     }
 
     Method (_WAK, 1, NotSerialized)  // _WAK: Wake
     {
+        If (LOr (LLess (Arg0, One), LGreater (Arg0, 0x05)))
+        {
+            Store (0x03, Arg0)
+        }
+
         RWAK (Arg0)
         \_SB.PCI0.NWAK (Arg0)
         \_SB.PCI0.LPCB.SWAK (Arg0)
@@ -11153,7 +11036,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Device (PPMC)
         {
             Name (_ADR, 0x001F0002)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -11179,7 +11062,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Device (SBUS)
         {
             Name (_ADR, 0x001F0004)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -12174,6 +12057,24 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             }
 
             Name (XFLT, Zero)
+            Method (XDSM, 4, Serialized)
+            {
+                If (PCIC (Arg0))
+                {
+                    Return (PCID (Arg0, Arg1, Arg2, Arg3))
+                }
+
+                If (LEqual (Arg0, ToUUID ("ac340cb7-e901-45bf-b7e6-2b34ec931e23")))
+                {
+                    If (LEqual (Arg1, 0x03))
+                    {
+                        Store (Arg1, XFLT)
+                    }
+                }
+
+                Return (Zero)
+            }
+
             Method (_S3D, 0, NotSerialized)  // _S3D: S3 Device State
             {
                 Return (0x03)
@@ -12511,7 +12412,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 Return (And (XDCB, 0xFFFFFFFFFFFFFF00))
             }
 
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 Name (T_0, Zero)
                 If (PCIC (Arg0))
@@ -12735,15 +12636,6 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 Store (Arg0, PMEE)
             }
 
-            Method (_PRW, 0, NotSerialized)  // _PRW: Power Resources for Wake
-            {
-                Return (Package (0x02)
-                {
-                    0x6D, 
-                    Zero
-                })
-            }
-
             Method (GPEH, 0, NotSerialized)
             {
                 If (LEqual (VDID, 0xFFFFFFFF))
@@ -12814,10 +12706,10 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 }
             }
 
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 Name (T_0, Zero)
-                ADBG ("HDEF _DSM")
+                ADBG ("HDEF XDSM")
                 If (PCIC (Arg0))
                 {
                     Return (PCID (Arg0, Arg1, Arg2, Arg3))
@@ -12837,22 +12729,22 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                         }
                         ElseIf (LEqual (T_0, One))
                         {
-                            ADBG ("_DSM Fun 1 NHLT")
+                            ADBG ("XDSM Fun 1 NHLT")
                             Return (NBUF)
                         }
                         ElseIf (LEqual (T_0, 0x02))
                         {
-                            ADBG ("_DSM Fun 2 FMSK")
+                            ADBG ("XDSM Fun 2 FMSK")
                             Return (ADFM)
                         }
                         ElseIf (LEqual (T_0, 0x03))
                         {
-                            ADBG ("_DSM Fun 3 PPMS")
+                            ADBG ("XDSM Fun 3 PPMS")
                             Return (Zero)
                         }
                         Else
                         {
-                            ADBG ("_DSM Fun NOK")
+                            ADBG ("XDSM Fun NOK")
                             Return (Buffer (One)
                             {
                                  0x00                                           
@@ -12863,21 +12755,57 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     }
                 }
 
-                ADBG ("_DSM UUID NOK")
+                ADBG ("XDSM UUID NOK")
+            }
+
+            Device (BUS0)
+            {
+                Name (_CID, "smbus")  // _CID: Compatible ID
+                Name (_ADR, Zero)  // _ADR: Address
+                Device (DVL0)
+                {
+                    Name (_ADR, 0x57)  // _ADR: Address
+                    Name (_CID, "diagsvault")  // _CID: Compatible ID
+                    Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
+                    {
+                        If (LEqual (Arg2, Zero))
+                        {
+                            Return (Buffer (One)
+                            {
+                                 0x03                                           
+                            })
+                        }
+
+                        Return (Package (0x02)
+                        {
+                            "address", 
+                            0x57
+                        })
+                    }
+                }
+            }
+
+            Method (_PRW, 0, NotSerialized)  // _PRW: Power Resources for Wake
+            {
+                Return (Package (0x02)
+                {
+                    0x6D, 
+                    Zero
+                })
             }
         }
 
-        Device (SATA)
+        Device (SAT0)
         {
             Name (_ADR, 0x00170000)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
                     Return (PCID (Arg0, Arg1, Arg2, Arg3))
                 }
 
-                If (CondRefOf (\_SB.PCI0.SATA.SDSM))
+                If (CondRefOf (\_SB.PCI0.SAT0.SDSM))
                 {
                     Return (SDSM (Arg0, Arg1, Arg2, Arg3))
                 }
@@ -13750,7 +13678,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.I2C0)
         {
             Name (_ADR, 0x00150000)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -13793,7 +13721,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.I2C1)
         {
             Name (_ADR, 0x00150001)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -13836,7 +13764,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.I2C2)
         {
             Name (_ADR, 0x00150002)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -13879,7 +13807,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.I2C3)
         {
             Name (_ADR, 0x00150003)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -13922,7 +13850,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.I2C4)
         {
             Name (_ADR, 0x00190002)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -13965,7 +13893,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.I2C5)
         {
             Name (_ADR, 0x00190001)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -14025,7 +13953,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.SPI0)
         {
             Name (_ADR, 0x001E0002)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -14085,7 +14013,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.SPI1)
         {
             Name (_ADR, 0x001E0003)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -14144,7 +14072,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.UA00)
         {
             Name (_ADR, 0x001E0000)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -14224,7 +14152,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.UA01)
         {
             Name (_ADR, 0x001E0001)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -14304,7 +14232,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Scope (_SB.PCI0.UA02)
         {
             Name (_ADR, 0x00190000)  // _ADR: Address
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -14483,7 +14411,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             Name (_HID, "XXXX0000")  // _HID: Hardware ID
             Name (_CID, "PNP0C50")  // _CID: Compatible ID
             Name (_S0W, 0x03)  // _S0W: S0 Device Wake State
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (LEqual (Arg0, HIDG))
                 {
@@ -14619,7 +14547,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     "\\_SB.PCI0.GPI0", 0x00, ResourceConsumer, ,
                     )
                     {   // Pin list
-                        0x0047
+                        0x0000
                     }
             })
             Name (SBFI, ResourceTemplate ()
@@ -14719,7 +14647,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             Name (_HID, "XXXX0000")  // _HID: Hardware ID
             Name (_CID, "PNP0C50")  // _CID: Compatible ID
             Name (_S0W, 0x04)  // _S0W: S0 Device Wake State
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 If (LEqual (Arg0, HIDG))
                 {
@@ -14744,7 +14672,17 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
             Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource Settings
             {
-                Return (ConcatenateResTemplate (SBFB, SBFG))
+                If (LLess (OSYS, 0x07DC))
+                {
+                    Return (SBFI)
+                }
+
+                If (LEqual (SDM1, Zero))
+                {
+                    Return (ConcatenateResTemplate (SBFB, SBFG))
+                }
+
+                Return (ConcatenateResTemplate (SBFB, SBFI))
             }
         }
 
@@ -15820,7 +15758,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Store (PSTA, Local0)
                 }
 
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (PCIC (Arg0))
@@ -15926,7 +15864,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     Store (PSTA, Local0)
                 }
 
-                Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+                Method (XDSM, 4, Serialized)
                 {
                     Name (T_0, Zero)
                     If (PCIC (Arg0))
@@ -16002,7 +15940,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         Device (ISHD)
         {
             Name (_ADR, 0x00130000)  // _ADR: Address
-            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, NotSerialized)
             {
                 If (PCIC (Arg0))
                 {
@@ -16274,7 +16212,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 Return (Zero)
             }
 
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 Name (T_1, Zero)
                 Name (T_0, Zero)
@@ -16372,6 +16310,11 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Method (ADBG, 1, Serialized)
     {
+        If (CondRefOf (MDBG))
+        {
+            Return (MDBG (Arg0))
+        }
+
         Return (Zero)
     }
 
@@ -17096,7 +17039,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 Return (RBUF)
             }
 
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 Name (T_0, Zero)
                 Name (BUFX, Package (0x09)
@@ -19008,7 +18951,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     {
         Scope (_SB.PCI0.RP01.PXSX)
         {
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 Name (T_1, Zero)
                 Name (T_0, Zero)
@@ -19362,7 +19305,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP02.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -19715,7 +19658,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP03.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -20068,7 +20011,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP04.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -20423,7 +20366,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     {
         Scope (_SB.PCI0.RP05.PXSX)
         {
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 Name (T_1, Zero)
                 Name (T_0, Zero)
@@ -20777,7 +20720,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP06.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -21130,7 +21073,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP07.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -21483,7 +21426,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP08.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -21838,7 +21781,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     {
         Scope (_SB.PCI0.RP09.PXSX)
         {
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 Name (T_1, Zero)
                 Name (T_0, Zero)
@@ -22192,7 +22135,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP10.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -22545,7 +22488,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP11.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -22898,7 +22841,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP12.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -23251,7 +23194,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP13.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -23604,7 +23547,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP14.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -23957,7 +23900,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP15.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -24310,7 +24253,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP16.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -24663,7 +24606,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP17.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -25016,7 +24959,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP18.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -25369,7 +25312,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP19.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -25722,7 +25665,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
     Scope (_SB.PCI0.RP20.PXSX)
     {
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -26118,7 +26061,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         }
     }
 
-    Scope (_SB.PCI0.SATA)
+    Scope (_SB.PCI0.SAT0)
     {
         Method (_DEP, 0, NotSerialized)  // _DEP: Dependencies
         {
@@ -27688,7 +27631,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
                 Package (0x03)
                 {
-                    "\\_SB.PCI0.SATA", 
+                    "\\_SB.PCI0.SAT0", 
                     Zero, 
                     Package (0x02)
                     {
@@ -28257,7 +28200,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             {
                 Package (0x02)
                 {
-                    "\\_SB.PCI0.SATA", 
+                    "\\_SB.PCI0.SAT0", 
                     Package (0x01)
                     {
                         Package (0x03)
@@ -28285,7 +28228,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
                 Package (0x02)
                 {
-                    "\\_SB.PCI0.SATA.PRT0", 
+                    "\\_SB.PCI0.SAT0.PRT0", 
                     Package (0x01)
                     {
                         Package (0x03)
@@ -28313,7 +28256,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
                 Package (0x02)
                 {
-                    "\\_SB.PCI0.SATA.PRT1", 
+                    "\\_SB.PCI0.SAT0.PRT1", 
                     Package (0x01)
                     {
                         Package (0x03)
@@ -28341,7 +28284,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
                 Package (0x02)
                 {
-                    "\\_SB.PCI0.SATA.PRT2", 
+                    "\\_SB.PCI0.SAT0.PRT2", 
                     Package (0x01)
                     {
                         Package (0x03)
@@ -28369,7 +28312,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
                 Package (0x02)
                 {
-                    "\\_SB.PCI0.SATA.PRT3", 
+                    "\\_SB.PCI0.SAT0.PRT3", 
                     Package (0x01)
                     {
                         Package (0x03)
@@ -28965,7 +28908,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 Return (Zero)
             }
 
-            Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, Serialized)
             {
                 ADBG (Concatenate ("PEPC = ", ToHexString (PEPC)))
                 If (LEqual (Arg0, ToUUID ("c4eb40a0-6cd2-11e2-bcfd-0800200c9a66")))
@@ -29400,26 +29343,11 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 Memory32Fixed (ReadWrite,
                     0xFED00000,         // Address Base
                     0x00000400,         // Address Length
-                    _Y2F)
+                    )
             })
-            Method (_STA, 0, NotSerialized)  // _STA: Status
+            Name (_STA, 0x0F)  // _STA: Status
+            Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource Settings
             {
-                If (HPTE)
-                {
-                    Return (0x0F)
-                }
-
-                Return (Zero)
-            }
-
-            Method (_CRS, 0, Serialized)  // _CRS: Current Resource Settings
-            {
-                If (HPTE)
-                {
-                    CreateDWordField (BUF0, \_SB.PCI0.LPCB.HPET._Y2F._BAS, HPT0)  // _BAS: Base Address
-                    Store (HPTB, HPT0)
-                }
-
                 Return (BUF0)
             }
         }
@@ -29701,7 +29629,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     0x0070,             // Range Minimum
                     0x0070,             // Range Maximum
                     0x01,               // Alignment
-                    0x08,               // Length
+                    0x02,               // Length
                     )
             })
         }
@@ -29798,36 +29726,36 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             Memory32Fixed (ReadOnly,
                 0x00000000,         // Address Base
                 0x00001000,         // Address Length
-                _Y30)
+                _Y2F)
             Memory32Fixed (ReadOnly,
                 0xFED70000,         // Address Base
                 0x00001000,         // Address Length
-                _Y31)
+                _Y30)
         })
         Name (CRSD, ResourceTemplate ()
         {
             Memory32Fixed (ReadOnly,
                 0xFED40000,         // Address Base
                 0x00001000,         // Address Length
-                _Y32)
+                _Y31)
         })
         Name (CRSI, ResourceTemplate ()
         {
             Memory32Fixed (ReadOnly,
                 0xFED40000,         // Address Base
                 0x00001000,         // Address Length
-                _Y33)
+                _Y32)
         })
         Method (_CRS, 0, Serialized)  // _CRS: Current Resource Settings
         {
             If (LEqual (AMDT, One))
             {
-                CreateDWordField (CRST, \_SB.TPM._Y30._BAS, MTFB)  // _BAS: Base Address
-                CreateDWordField (CRST, \_SB.TPM._Y30._LEN, LTFB)  // _LEN: Length
+                CreateDWordField (CRST, \_SB.TPM._Y2F._BAS, MTFB)  // _BAS: Base Address
+                CreateDWordField (CRST, \_SB.TPM._Y2F._LEN, LTFB)  // _LEN: Length
                 Store (TPMB, MTFB)
                 Store (0x1000, LTFB)
-                CreateDWordField (CRST, \_SB.TPM._Y31._BAS, MTFC)  // _BAS: Base Address
-                CreateDWordField (CRST, \_SB.TPM._Y31._LEN, LTFC)  // _LEN: Length
+                CreateDWordField (CRST, \_SB.TPM._Y30._BAS, MTFC)  // _BAS: Base Address
+                CreateDWordField (CRST, \_SB.TPM._Y30._LEN, LTFC)  // _LEN: Length
                 Store (TPMC, MTFC)
                 Store (0x1000, LTFC)
                 Return (CRST)
@@ -29836,23 +29764,23 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             {
                 If (LEqual (DTPT, One))
                 {
-                    CreateDWordField (CRSD, \_SB.TPM._Y32._BAS, MTFE)  // _BAS: Base Address
-                    CreateDWordField (CRSD, \_SB.TPM._Y32._LEN, LTFE)  // _LEN: Length
+                    CreateDWordField (CRSD, \_SB.TPM._Y31._BAS, MTFE)  // _BAS: Base Address
+                    CreateDWordField (CRSD, \_SB.TPM._Y31._LEN, LTFE)  // _LEN: Length
                     Store (0xFED40000, MTFE)
                     Store (0x0880, LTFE)
                     Return (CRSD)
                 }
                 ElseIf (LEqual (TTPF, One))
                 {
-                    CreateDWordField (CRSI, \_SB.TPM._Y33._BAS, MTFD)  // _BAS: Base Address
-                    CreateDWordField (CRSI, \_SB.TPM._Y33._LEN, LTFD)  // _LEN: Length
+                    CreateDWordField (CRSI, \_SB.TPM._Y32._BAS, MTFD)  // _BAS: Base Address
+                    CreateDWordField (CRSI, \_SB.TPM._Y32._LEN, LTFD)  // _LEN: Length
                     Store (0xFED40000, MTFD)
                     Store (0x5000, LTFD)
                     Return (CRSI)
                 }
                 ElseIf (LEqual (TTPF, Zero))
                 {
-                    CreateDWordField (CRSI, \_SB.TPM._Y33._BAS, MTFF)  // _BAS: Base Address
+                    CreateDWordField (CRSI, \_SB.TPM._Y32._BAS, MTFF)  // _BAS: Base Address
                     Store (TPMM, MTFF)
                     Return (CRSI)
                 }
@@ -30035,7 +29963,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             SRSP,   32
         }
 
-        Method (_DSM, 4, Serialized)  // _DSM: Device-Specific Method
+        Method (XDSM, 4, Serialized)
         {
             Name (T_1, Zero)
             Name (T_0, Zero)
@@ -31688,55 +31616,6 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                     WE1B (Arg0, DerefOf (Index (TEMP, Local0)))
                     Increment (Arg0)
                     Increment (Local0)
-                }
-            }
-
-            Method (ECCM, 4, Serialized)
-            {
-                If (ECAV ())
-                {
-                    Acquire (MUEC, 0xFFFF)
-                    Store (Arg0, CDT1)
-                    Store (Arg1, CDT2)
-                    Store (Arg2, CDT3)
-                    Store (Arg3, CMD1)
-                    Store (0x7F, Local0)
-                    While (LAnd (Local0, CMD1))
-                    {
-                        Sleep (One)
-                        Decrement (Local0)
-                    }
-
-                    If (LEqual (CMD1, Zero))
-                    {
-                        Store (CDT1, Local0)
-                    }
-                    Else
-                    {
-                        Store (Ones, Local0)
-                    }
-
-                    Release (MUEC)
-                    Return (Local0)
-                }
-
-                Return (Ones)
-            }
-
-            Method (RPUN, 1, Serialized)
-            {
-                Return (ECCM (0x87, Zero, Arg0, 0xB6))
-            }
-
-            Method (SPUN, 2, Serialized)
-            {
-                If (Arg1)
-                {
-                    ECCM (0x87, 0x20, Arg0, 0xB6)
-                }
-                Else
-                {
-                    ECCM (0x87, 0x40, Arg0, 0xB6)
                 }
             }
         }
@@ -33733,52 +33612,6 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 }
 
                 Return (MEMD)
-            }
-
-            Name (BOFF, Zero)
-            Method (SKBL, 1, NotSerialized)
-            {
-                If (Or (LEqual (Arg0, 0xED), LEqual (Arg0, 0xFD)))
-                {
-                    If (And (LEqual (Arg0, 0xED), LEqual (BOFF, 0xEA)))
-                    {
-                        Store (Zero, Local0)
-                        Store (Arg0, BOFF)
-                    }
-                    ElseIf (And (LEqual (Arg0, 0xFD), LEqual (BOFF, 0xFA)))
-                    {
-                        Store (Zero, Local0)
-                        Store (Arg0, BOFF)
-                    }
-                    Else
-                    {
-                        Return (BOFF)
-                    }
-                }
-                ElseIf (Or (LEqual (Arg0, 0xEA), LEqual (Arg0, 0xFA)))
-                {
-                    Store (KBLV, Local0)
-                    Store (Arg0, BOFF)
-                }
-                Else
-                {
-                    Store (Arg0, Local0)
-                    Store (Arg0, KBLV)
-                }
-
-                Store (DerefOf (Index (PWKB, Local0)), Local1)
-                ^^PCI0.LPCB.EC0.WRAM (0x044B, Local1)
-                Return (Local0)
-            }
-
-            Method (GKBL, 1, NotSerialized)
-            {
-                If (LEqual (Arg0, 0xFF))
-                {
-                    Return (BOFF)
-                }
-
-                Return (KBLV)
             }
         }
     }
@@ -36855,7 +36688,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
         Method (GBRV, 0, NotSerialized)
         {
-            Store ("305", Local0)
+            Store ("306", Local0)
             Return (Local0)
         }
 
@@ -39409,7 +39242,16 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         {
             If (ATKP)
             {
-                ^^^^ATKD.IANE (0x50)
+                Store (RRAM (0x04B0), Local0)
+                And (Local0, 0x80, Local1)
+                If (Local1)
+                {
+                    ^^^^ATKD.IANE (0xC5)
+                }
+                Else
+                {
+                    ^^^^ATKD.IANE (0x50)
+                }
             }
         }
 
@@ -39417,7 +39259,16 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
         {
             If (ATKP)
             {
-                ^^^^ATKD.IANE (0x51)
+                Store (RRAM (0x04B0), Local0)
+                And (Local0, 0x80, Local1)
+                If (Local1)
+                {
+                    ^^^^ATKD.IANE (0xC4)
+                }
+                Else
+                {
+                    ^^^^ATKD.IANE (0x51)
+                }
             }
         }
 
@@ -39428,18 +39279,134 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
         Method (_Q0E, 0, NotSerialized)  // _Qxx: EC Query
         {
-            If (ATKP)
+            If (LLess (MSOS (), OSW8))
             {
-                ^^^^ATKD.IANE (0x20)
+                SBRN ()
             }
+
+            If (LGreaterEqual (MSOS (), OSVT))
+            {
+                Store (LBTN, Local0)
+                If (^^^PEG0.GFX0.PRST ())
+                {
+                    If (LNotEqual (^^^PEG0.GFX0.LCDD._DCS (), 0x1F))
+                    {
+                        If (LNotEqual (^^^PEG0.GFX0.EDPD._DCS (), 0x1F))
+                        {
+                            Return (Zero)
+                        }
+                    }
+
+                    ^^^PEG0.GFX0.DWBL ()
+                    Store (One, ASBN)
+                }
+
+                Store (Zero, ASBN)
+                If (ATKP)
+                {
+                    If (LGreaterEqual (MSOS (), OSW8)) {}
+                    Else
+                    {
+                        If (LGreater (Local0, Zero))
+                        {
+                            Decrement (Local0)
+                        }
+
+                        If (LGreater (Local0, 0x0A))
+                        {
+                            Store (0x0A, Local0)
+                        }
+
+                        Store (Local0, LBTN)
+                        ^^^^ATKD.IANE (Add (Local0, 0x20))
+                    }
+                }
+            }
+            Else
+            {
+                If (LGreater (LBTN, Zero))
+                {
+                    Decrement (LBTN)
+                }
+
+                If (LGreater (LBTN, 0x0A))
+                {
+                    Store (0x0A, LBTN)
+                }
+
+                STBR ()
+                If (ATKP)
+                {
+                    ^^^^ATKD.IANE (Add (LBTN, 0x20))
+                }
+            }
+
+            Return (Zero)
         }
 
         Method (_Q0F, 0, NotSerialized)  // _Qxx: EC Query
         {
-            If (ATKP)
+            If (LLess (MSOS (), OSW8))
             {
-                ^^^^ATKD.IANE (0x10)
+                SBRN ()
             }
+
+            If (LGreaterEqual (MSOS (), OSVT))
+            {
+                Store (LBTN, Local0)
+                If (^^^PEG0.GFX0.PRST ())
+                {
+                    If (LNotEqual (^^^PEG0.GFX0.LCDD._DCS (), 0x1F))
+                    {
+                        If (LNotEqual (^^^PEG0.GFX0.EDPD._DCS (), 0x1F))
+                        {
+                            Return (Zero)
+                        }
+                    }
+
+                    ^^^PEG0.GFX0.UPBL ()
+                    Store (One, ASBN)
+                }
+
+                Store (Zero, ASBN)
+                If (ATKP)
+                {
+                    If (LGreaterEqual (MSOS (), OSW8)) {}
+                    Else
+                    {
+                        If (LLess (Local0, 0x0A))
+                        {
+                            Increment (Local0)
+                        }
+                        Else
+                        {
+                            Store (0x0A, Local0)
+                        }
+
+                        Store (Local0, LBTN)
+                        ^^^^ATKD.IANE (Add (Local0, 0x10))
+                    }
+                }
+            }
+            Else
+            {
+                If (LLess (LBTN, 0x0A))
+                {
+                    Increment (LBTN)
+                }
+                Else
+                {
+                    Store (0x0A, LBTN)
+                }
+
+                STBR ()
+                If (ATKP)
+                {
+                    ^^^^ATKD.IANE (Add (LBTN, 0x10))
+                }
+            }
+
+            Return (Zero)
         }
 
         Method (_Q10, 0, NotSerialized)  // _Qxx: EC Query
@@ -39447,9 +39414,9 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             If (LEqual (BLCT, Zero))
             {
                 Store (One, Local0)
-                Store (RPUN (0x72), Local0)
+                Store (RPIN (0x72), Local0)
                 XOr (Local0, One, Local0)
-                SPUN (0x72, Local0)
+                SPIN (0x72, Local0)
                 If (ATKP)
                 {
                     Subtract (0x34, Local0, Local0)
@@ -39571,26 +39538,69 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
         Method (_Q13, 0, NotSerialized)  // _Qxx: EC Query
         {
+            If (LGreaterEqual (MSOS (), OSW8))
+            {
+                STB2 (0xE0)
+                STB2 (0x20)
+                STB2 (0xE0)
+                STB2 (0xA0)
+                Return (Zero)
+            }
+
             If (ATKP)
             {
                 ^^^^ATKD.IANE (0x32)
             }
+
+            Return (Zero)
         }
 
         Method (_Q14, 0, NotSerialized)  // _Qxx: EC Query
         {
+            If (LGreaterEqual (MSOS (), OSW8))
+            {
+                STB2 (0xE0)
+                STB2 (0x2E)
+                STB2 (0xE0)
+                STB2 (0xAE)
+                Return (Zero)
+            }
+
+            If (LLess (AVOL, 0x0F))
+            {
+                Increment (AVOL)
+            }
+
             If (ATKP)
             {
                 ^^^^ATKD.IANE (0x31)
             }
+
+            Return (Zero)
         }
 
         Method (_Q15, 0, NotSerialized)  // _Qxx: EC Query
         {
+            If (LGreaterEqual (MSOS (), OSW8))
+            {
+                STB2 (0xE0)
+                STB2 (0x30)
+                STB2 (0xE0)
+                STB2 (0xB0)
+                Return (Zero)
+            }
+
+            If (LGreater (AVOL, Zero))
+            {
+                Decrement (AVOL)
+            }
+
             If (ATKP)
             {
                 ^^^^ATKD.IANE (0x30)
             }
+
+            Return (Zero)
         }
 
         Method (_Q6F, 0, NotSerialized)  // _Qxx: EC Query
@@ -40068,21 +40078,19 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
     {
         Device (ETPD)
         {
-            Name (SBFG, ResourceTemplate ()
-            {
-                GpioInt (Level, ActiveLow, ExclusiveAndWake, PullDefault, 0x0000,
-                    "\\_SB.PCI0.GPI0", 0x00, ResourceConsumer, ,
-                    )
-                    {   // Pin list
-                        0x0047
-                    }
-            })
             Name (SBFB, ResourceTemplate ()
             {
                 I2cSerialBusV2 (0x004C, ControllerInitiated, 0x00061A80,
                     AddressingMode7Bit, "\\_SB.PCI0.I2C1",
-                    0x00, ResourceConsumer, _Y34, Exclusive,
+                    0x00, ResourceConsumer, _Y33, Exclusive,
                     )
+            })
+            Name (SBFI, ResourceTemplate ()
+            {
+                Interrupt (ResourceConsumer, Level, ActiveHigh, Exclusive, ,, )
+                {
+                    0x0000005F,
+                }
             })
             Name (EPID, Package (0x04)
             {
@@ -40098,7 +40106,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 "N/A", 
                 "N/A"
             })
-            CreateWordField (SBFB, \_SB.PCI0.I2C1.ETPD._Y34._ADR, BADR)  // _ADR: Address
+            CreateWordField (SBFB, \_SB.PCI0.I2C1.ETPD._Y33._ADR, BADR)  // _ADR: Address
             Name (_ADR, One)  // _ADR: Address
             Method (_HID, 0, NotSerialized)  // _HID: Hardware ID
             {
@@ -40132,7 +40140,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 }
             }
 
-            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
+            Method (XDSM, 4, NotSerialized)
             {
                 If (LEqual (Arg0, ToUUID ("3cdff6f7-4267-4555-ad05-b30a3d8938de") /* HID I2C Device */))
                 {
@@ -40187,6 +40195,16 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             {
                 Return (ConcatenateResTemplate (SBFB, SBFG))
             }
+
+            Name (SBFG, ResourceTemplate ()
+            {
+                GpioInt (Level, ActiveLow, ExclusiveAndWake, PullDefault, 0x0000,
+                    "\\_SB.PCI0.GPI0", 0x00, ResourceConsumer, ,
+                    )
+                    {   // Pin list
+                        0x0047
+                    }
+            })
         }
     }
 
@@ -40198,7 +40216,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             Method (_LID, 0, NotSerialized)  // _LID: Lid Status
             {
                 Store (One, Local0)
-                Store (^^PCI0.LPCB.EC0.RPUN (0x11), Local0)
+                Store (^^PCI0.LPCB.EC0.RPIN (0x11), Local0)
                 If (LEqual (Local0, Ones))
                 {
                     Store (One, Local0)
@@ -41057,7 +41075,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
 
         Method (GLID, 0, Serialized)
         {
-            Return (\_SB.PCI0.LPCB.EC0.RPUN (0x11))
+            Return (\_SB.PCI0.LPCB.EC0.RPIN (0x11))
         }
 
         Method (TLID, 0, Serialized)
@@ -41346,7 +41364,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                             Name (XUPC, Package (0x04)
                             {
                                 0xFF, 
-                                0x0A, 
+                                0x09, 
                                 Zero, 
                                 Zero
                             })
@@ -41379,7 +41397,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                             Name (XUPC, Package (0x04)
                             {
                                 0xFF, 
-                                0x0A, 
+                                0x09, 
                                 Zero, 
                                 Zero
                             })
@@ -41412,7 +41430,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                             Name (XUPC, Package (0x04)
                             {
                                 0xFF, 
-                                0x0A, 
+                                0x09, 
                                 Zero, 
                                 Zero
                             })
@@ -41445,7 +41463,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                             Name (XUPC, Package (0x04)
                             {
                                 0xFF, 
-                                0x0A, 
+                                0x09, 
                                 Zero, 
                                 Zero
                             })
@@ -41911,80 +41929,6 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 Return (GPRW (0x09, 0x04))
             }
 
-            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
-            {
-                If (LEqual (Arg2, Zero))
-                {
-                    Return (Buffer (One)
-                    {
-                         0x03                                           
-                    })
-                }
-
-                Return (Package (0x18)
-                {
-                    "@0,connector-type", 
-                    Buffer (0x04)
-                    {
-                         0x02, 0x00, 0x00, 0x00                         
-                    }, 
-
-                    "@0,AAPL,boot-display", 
-                    Buffer (0x04)
-                    {
-                         0x01, 0x00, 0x00, 0x00                         
-                    }, 
-
-                    "@0,built-in", 
-                    Buffer (Zero) {}, 
-                    "@0,display-connect-flags", 
-                    Buffer (0x04)
-                    {
-                         0x04, 0x00, 0x00, 0x00                         
-                    }, 
-
-                    "@0,use-backlight-blanking", 
-                    Buffer (0x04) {}, 
-                    "AAPL,backlight-control", 
-                    Buffer (0x04)
-                    {
-                         0x01, 0x00, 0x00, 0x00                         
-                    }, 
-
-                    "@0,backlight-control", 
-                    Buffer (0x04)
-                    {
-                         0x01, 0x00, 0x00, 0x00                         
-                    }, 
-
-                    "@0,display-type", 
-                    "LCD", 
-                    "@1,connector-type", 
-                    Buffer (0x04)
-                    {
-                         0x00, 0x08, 0x00, 0x00                         
-                    }, 
-
-                    "@2,connector-type", 
-                    Buffer (0x04)
-                    {
-                         0x00, 0x08, 0x00, 0x00                         
-                    }, 
-
-                    "@3,connector-type", 
-                    Buffer (0x04)
-                    {
-                         0x00, 0x08, 0x00, 0x00                         
-                    }, 
-
-                    "hda-gfx", 
-                    Buffer (0x0A)
-                    {
-                        "onboard-1"
-                    }
-                })
-            }
-
             OperationRegion (VSID, PCI_Config, Zero, 0x04)
             Field (VSID, ByteAcc, NoLock, Preserve)
             {
@@ -42206,11 +42150,18 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 }
             }
 
-            Device (LCD)
+            Device (EDPD)
             {
                 Method (_ADR, 0, NotSerialized)  // _ADR: Address
                 {
-                    Return (0x8000A430)
+                    If (LEqual (VGAF, 0x02))
+                    {
+                        Return (0x0210)
+                    }
+                    Else
+                    {
+                        Return (0x8000A430)
+                    }
                 }
 
                 Method (_DCS, 0, NotSerialized)  // _DCS: Display Current Status
@@ -42370,6 +42321,121 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
                 }
             }
 
+            Device (LCDD)
+            {
+                Name (_ADR, 0x0110)  // _ADR: Address
+                Method (_DCS, 0, NotSerialized)  // _DCS: Display Current Status
+                {
+                    Store (One, CHA1)
+                    Store (One, CHA2)
+                    Store (Zero, CHA3)
+                    Notify (GFX0, 0xF0)
+                    While (LEqual (CHA2, One))
+                    {
+                        Sleep (0x32)
+                        If (LNotEqual (CHA3, One))
+                        {
+                            Store (Zero, CHA2)
+                        }
+                    }
+
+                    Store (MD2A (ACTD), ACTD)
+                    Store (MD2A (AVLD), AVLD)
+                    Store (ACTD, Local0)
+                    If (Local0)
+                    {
+                        If (And (Local0, LCDM))
+                        {
+                            Return (0x1F)
+                        }
+                    }
+
+                    Return (0x1D)
+                }
+
+                Method (_DGS, 0, NotSerialized)  // _DGS: Display Graphics State
+                {
+                    And (NXTD, LCDM, Local0)
+                    If (Local0)
+                    {
+                        Return (One)
+                    }
+
+                    Return (Zero)
+                }
+
+                Method (_DSS, 1, NotSerialized)  // _DSS: Device Set State
+                {
+                    Store (One, DONE)
+                }
+
+                Method (_BCL, 0, NotSerialized)  // _BCL: Brightness Control Levels
+                {
+                    If (LGreaterEqual (MSOS (), OSW8))
+                    {
+                        Store (0x65, Local0)
+                        Add (Local0, 0x02, Local0)
+                        Name (BRPP, Package (0x67) {})
+                        Store (0x64, Index (BRPP, Zero))
+                        Store (0x28, Index (BRPP, One))
+                        Store (0x02, Local1)
+                        Store (Zero, Local2)
+                        While (LLess (Local1, Local0))
+                        {
+                            Store (Local2, Index (BRPP, Local1))
+                            Increment (Local1)
+                            Increment (Local2)
+                        }
+
+                        Store (Zero, Local0)
+                        While (LLessEqual (Local0, 0x0A))
+                        {
+                            Store (Multiply (Local0, 0x0A), Index (PCTG, Subtract (0x0A, Local0)))
+                            Increment (Local0)
+                        }
+
+                        Return (BRPP)
+                    }
+
+                    Store (Zero, Local0)
+                    Store (BRTI, Local4)
+                    ShiftLeft (Local4, 0x04, Local4)
+                    While (LLess (Local0, 0x0B))
+                    {
+                        Subtract (0x0B, Local0, Local3)
+                        Subtract (Local3, One, Local3)
+                        Store (Add (Local4, Local3), Local3)
+                        Store (DerefOf (Index (^^^^LPCB.EC0.PWAC, Local3)), Local1)
+                        Store (Divide (Multiply (Local1, 0x64), 0xFF, ), Local2)
+                        Store (Local2, Index (PCTG, Local0))
+                        Increment (Local0)
+                    }
+
+                    Return (PCTG)
+                }
+
+                Name (BCBH, Zero)
+                Method (_BCM, 1, NotSerialized)  // _BCM: Brightness Control Method
+                {
+                    If (LGreaterEqual (MSOS (), OSW8))
+                    {
+                        Store (Arg0, LBTN)
+                    }
+                    Else
+                    {
+                        Store (GCBL (Arg0), Local0)
+                        Subtract (0x0A, Local0, LBTN)
+                    }
+
+                    ^^^^LPCB.EC0.STBR ()
+                }
+
+                Method (_BQC, 0, NotSerialized)  // _BQC: Brightness Query Current
+                {
+                    Return (LBTN)
+                }
+            }
+
             Method (SWHD, 1, Serialized)
             {
                 Store (One, UPDN)
@@ -42517,11 +42583,11 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             {
                 If (PA3D)
                 {
-                    Notify (LCD, 0x86)
+                    Notify (EDPD, 0x86)
                 }
                 Else
                 {
-                    Notify (LCD, 0x86)
+                    Notify (EDPD, 0x86)
                 }
             }
 
@@ -42529,11 +42595,11 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             {
                 If (PA3D)
                 {
-                    Notify (LCD, 0x87)
+                    Notify (EDPD, 0x87)
                 }
                 Else
                 {
-                    Notify (LCD, 0x87)
+                    Notify (EDPD, 0x87)
                 }
             }
 
@@ -43194,6 +43260,80 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             Method (OPTS, 1, NotSerialized)
             {
             }
+
+            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
+            {
+                If (LEqual (Arg2, Zero))
+                {
+                    Return (Buffer (One)
+                    {
+                         0x03                                           
+                    })
+                }
+
+                Return (Package (0x18)
+                {
+                    "@0,connector-type", 
+                    Buffer (0x04)
+                    {
+                         0x02, 0x00, 0x00, 0x00                         
+                    }, 
+
+                    "@0,AAPL,boot-display", 
+                    Buffer (0x04)
+                    {
+                         0x01, 0x00, 0x00, 0x00                         
+                    }, 
+
+                    "@0,built-in", 
+                    Buffer (Zero) {}, 
+                    "@0,display-connect-flags", 
+                    Buffer (0x04)
+                    {
+                         0x04, 0x00, 0x00, 0x00                         
+                    }, 
+
+                    "@0,use-backlight-blanking", 
+                    Buffer (0x04) {}, 
+                    "AAPL,backlight-control", 
+                    Buffer (0x04)
+                    {
+                         0x01, 0x00, 0x00, 0x00                         
+                    }, 
+
+                    "@0,backlight-control", 
+                    Buffer (0x04)
+                    {
+                         0x01, 0x00, 0x00, 0x00                         
+                    }, 
+
+                    "@0,display-type", 
+                    "LCD", 
+                    "@1,connector-type", 
+                    Buffer (0x04)
+                    {
+                         0x00, 0x08, 0x00, 0x00                         
+                    }, 
+
+                    "@2,connector-type", 
+                    Buffer (0x04)
+                    {
+                         0x00, 0x08, 0x00, 0x00                         
+                    }, 
+
+                    "@3,connector-type", 
+                    Buffer (0x04)
+                    {
+                         0x00, 0x08, 0x00, 0x00                         
+                    }, 
+
+                    "hda-gfx", 
+                    Buffer (0x0A)
+                    {
+                        "onboard-1"
+                    }
+                })
+            }
         }
     }
 
@@ -43744,7 +43884,7 @@ DefinitionBlock ("", "DSDT", 2, "_ASUS_", "Notebook", 0x01072009)
             Name (_STA, 0x0B)  // _STA: Status
             Method (_BCL, 0, NotSerialized)  // _BCL: Brightness Control Levels
             {
-                Return (^^PCI0.PEG0.GFX0.LCD._BCL ())
+                Return (^^PCI0.PEG0.GFX0.EDPD._BCL ())
             }
 
             Method (_BCM, 1, NotSerialized)  // _BCM: Brightness Control Method
