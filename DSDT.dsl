@@ -5,7 +5,7 @@
  * 
  * Disassembling to non-symbolic legacy ASL operators
  *
- * Disassembly of iASLNrR83k.aml, Tue Feb 20 00:17:49 2018
+ * Disassembly of iASLivpiBB.aml, Tue Feb 20 00:18:41 2018
  *
  * Original Table Header:
  *     Signature        "DSDT"
