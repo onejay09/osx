@@ -31,3 +31,7 @@ to: /OTHER/PatchAppleBacklight/Vanilla and run the Patch.sh and install it to sy
 i have included my kexts but your screen may be made by a different vendor so you may need to apply this to have working backlight
 
 NOTE: the screen Backlight will be black when first booted up, its a bug i need to fix, just Turn the Brightness up From the keyboard
+
+AppleGraphicsPowerManagment.kext:
+to have better power managment on your gfx card you will need to edit the info.plist
+look for your board-id ie: Mac-473D31EABEB93F9B, mine is mbp 13,2 smbios, and rename the graphics ie IGPU to GFX0 and copy the data from mbp 11,3 Mac-2BD1B31983FE1663 as it uses nvidia graphics.
