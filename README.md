@@ -30,7 +30,7 @@ to have a working native backlight with gtx1060 you need to copy your vanilla Ap
 to: /OTHER/PatchAppleBacklight/Vanilla and run the Patch.sh and install it to system/library/Extensions/
 i have included my kexts but your screen may be made by a different vendor so you may need to apply this to have working backlight
 
-NOTE: the screen Backlight will be black when first booted up, its a bug i need to fix, just Turn the Brightness up From the keyboard
+NOTE: the screen Backlight was black when first booted up, i had to set brightness in config.plist
 
 AppleGraphicsPowerManagment.kext:
 to have better power managment on your gfx card you will need to edit the info.plist
