@@ -35,3 +35,6 @@ NOTE: the screen Backlight was black when first booted up, i had to set brightne
 AppleGraphicsPowerManagment.kext:
 to have better power managment on your gfx card you will need to edit the info.plist
 look for your board-id ie: Mac-473D31EABEB93F9B, mine is mbp 13,2 smbios, and rename the graphics ie IGPU to GFX0 and copy the data from mbp 11,3 Mac-2BD1B31983FE1663 as it uses nvidia graphics.
+
+31.3.18 added cCodecCommander.kext for audio aftersleep.
+updated backlight patch, more resolution.
